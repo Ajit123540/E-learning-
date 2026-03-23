@@ -1,0 +1,45 @@
+{
+  "name": "e-learning-platform",
+  "version": "1.0.0",
+  "description": "A modern e-learning platform with React and Node.js featuring user authentication, course management, and professional UI/UX design",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"cd lms/backend && npm start\" \"cd lms/frontend && npm start\"",
+    "dev": "concurrently \"cd lms/backend && npm run dev\" \"cd lms/frontend && npm start\"",
+    "start:frontend": "cd lms/frontend && npm start",
+    "start:backend": "cd lms/backend && npm start",
+    "install-all": "npm install && cd lms/frontend && npm install && cd ../backend && npm install",
+    "build": "cd lms/frontend && npm run build",
+    "setup": "npm run install-all && echo 'Setup complete! Run npm start to begin development.'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "e-learning",
+    "education",
+    "react",
+    "nodejs",
+    "express",
+    "material-ui",
+    "jwt",
+    "authentication",
+    "course-management",
+    "professional-ui"
+  ],
+  "author": "Ajit Kumar",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ajit123540/E-learning-.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Ajit123540/E-learning-/issues"
+  },
+  "homepage": "https://github.com/Ajit123540/E-learning-#readme",
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  }
+}
