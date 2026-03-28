@@ -10,6 +10,10 @@ A modern, professional e-learning platform built with React and Node.js, featuri
 - **Professional UI/UX**: Modern, clean design with professional theme
 - **Responsive Design**: Works seamlessly on all devices
 - **Progress Tracking**: Track learning progress and achievements
+- **🏆 RPG Gamification**: Gain XP, level up, and unlock Gamer Cards on your Student Dashboard.
+- **🖌️ Interactive Whiteboard**: Draw formulas and diagram concepts directly on the Course Video page using HTML5 Canvas.
+- **🤖 AI Course Tutor**: Dynamic, real-time simulated AI assistance while you learn.
+- **📈 Advanced E-Commerce**: Dedicated Analytics Dashboard, Promo Code engines, and native PDF Certificate generation!
 
 ### 🛠 Technical Features
 - **Frontend**: React.js with Material-UI components
