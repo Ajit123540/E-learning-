@@ -10,9 +10,12 @@ import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import ForgotPasswordPage from './pages/auth/ForgotPasswordPage';
 import ResetPasswordPage from './pages/auth/ResetPasswordPage';
+import AdminLoginPage from './pages/auth/AdminLoginPage';
+import ExamTakingPage from './pages/exams/ExamTakingPage';
 import CourseDetailPage from './pages/courses/CourseDetailPage';
 import CoursesPage from './pages/courses/CoursesPage';
 import DashboardPage from './pages/dashboard/DashboardPage';
+import AdminDashboard from './pages/admin/AdminDashboard';
 import './App.css';
 
 // Theme configuration
@@ -150,6 +153,7 @@ function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
+                <Route path="/admin-login" element={<AdminLoginPage />} />
                 <Route path="/forgot-password" element={<ForgotPasswordPage />} />
                 <Route path="/reset-password" element={<ResetPasswordPage />} />
                 <Route path="/courses/:courseId" element={<CourseDetailPage />} />
@@ -159,6 +163,22 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <DashboardPage />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/admin" 
+                  element={
+                    <ProtectedRoute>
+                      <AdminDashboard />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/exams/:id" 
+                  element={
+                    <ProtectedRoute>
+                      <ExamTakingPage />
                     </ProtectedRoute>
                   } 
                 />

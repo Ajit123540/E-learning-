@@ -12,7 +12,8 @@ const file = path.join(__dirname, 'db.json');
 if (!fs.existsSync(file)) {
   fs.writeFileSync(file, JSON.stringify({
     users: [],
-    courses: []
+    courses: [],
+    resources: []
   }, null, 2));
 }
 
@@ -30,9 +31,11 @@ app.use(express.json());
 app.use(async (req, res, next) => {
   await db.read();
   // Initialize empty arrays if they don't exist
-  db.data = db.data || { users: [], courses: [] };
+  db.data = db.data || { users: [], courses: [], resources: [], exams: [] };
   db.data.users = db.data.users || [];
   db.data.courses = db.data.courses || [];
+  db.data.resources = db.data.resources || [];
+  db.data.exams = db.data.exams || [];
   
   // Save the initialized data
   await db.write();
@@ -42,9 +45,17 @@ app.use(async (req, res, next) => {
   next();
 });
 
+// Serve static uploads
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Serve static uploads
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // Routes
 app.use('/api/courses', require('./models/Course'));
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/resources', require('./routes/resources'));
+app.use('/api/exams', require('./routes/exams'));
 
 // Root route
 app.get('/', (req, res) => {
@@ -65,7 +76,7 @@ async function startServer() {
     // Ensure the database file exists
     if (!fs.existsSync(file)) {
       await db.read();
-      db.data = { users: [], courses: [] };
+      db.data = { users: [], courses: [], resources: [] };
       await db.write();
     }
     

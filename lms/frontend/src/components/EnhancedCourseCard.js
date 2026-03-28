@@ -1,31 +1,21 @@
 import React, { useState } from 'react';
 import {
   Card,
-  CardActionArea,
   CardContent,
   CardActions,
   Typography,
-  Button,
   Box,
   Chip,
-  Avatar,
   Rating,
   IconButton,
   Tooltip,
-  Badge,
 } from '@mui/material';
 import {
   Favorite,
   Share,
   Bookmark,
-  PlayArrow,
-  Star,
-  TrendingUp,
-  AccessTime,
   People,
-  Visibility,
 } from '@mui/icons-material';
-import { Link as RouterLink } from 'react-router-dom';
 
 const EnhancedCourseCard = ({ course }) => {
   const [isFavorited, setIsFavorited] = useState(false);
@@ -33,7 +23,6 @@ const EnhancedCourseCard = ({ course }) => {
 
   const handleCardClick = (e) => {
     e.preventDefault();
-    // Navigate to course detail page
     window.location.href = `/courses/${course.id}`;
   };
 
@@ -52,8 +41,6 @@ const EnhancedCourseCard = ({ course }) => {
   const handleShare = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    // Implement share functionality
-    console.log('Share course:', course.title);
   };
 
   return (
@@ -62,17 +49,19 @@ const EnhancedCourseCard = ({ course }) => {
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        borderRadius: 3,
+        borderRadius: 4,
         overflow: 'hidden',
-        background: '#ffffff',
-        border: '1px solid #e5e7eb',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
+        background: 'rgba(255, 255, 255, 0.03)',
+        backdropFilter: 'blur(20px)',
+        border: '1px solid rgba(255, 255, 255, 0.1)',
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)',
         position: 'relative',
         cursor: 'pointer',
         transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
         '&:hover': {
           transform: 'translateY(-8px) scale(1.02)',
-          boxShadow: '0 20px 40px rgba(79, 70, 229, 0.15), 0 10px 20px rgba(236, 72, 153, 0.1)',
+          boxShadow: '0 20px 40px rgba(79, 70, 229, 0.2), 0 10px 20px rgba(236, 72, 153, 0.15)',
+          border: '1px solid rgba(255, 255, 255, 0.2)',
         },
       }}
       onClick={handleCardClick}
@@ -83,7 +72,7 @@ const EnhancedCourseCard = ({ course }) => {
           position: 'relative',
           height: 200,
           overflow: 'hidden',
-          backgroundColor: '#f3f4f6',
+          backgroundColor: '#0f172a',
         }}
       >
         <img
@@ -93,31 +82,36 @@ const EnhancedCourseCard = ({ course }) => {
             width: '100%',
             height: '100%',
             objectFit: 'cover',
+            opacity: 0.85,
+            transition: 'opacity 0.3s ease',
           }}
           onError={(e) => {
-            // Use a simple fallback image
             e.target.src = `https://picsum.photos/seed/course-${course.id}/400/225.jpg`;
           }}
         />
         
-        {/* Category Badge */}
-        <Box
+        {/* Deep Gradient Overlay to blend image into the dark card */}
+        <Box 
           sx={{
             position: 'absolute',
-            top: 12,
-            left: 12,
-            zIndex: 2,
+            bottom: 0, left: 0, right: 0,
+            height: '50%',
+            background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)'
           }}
-        >
+        />
+
+        {/* Category Badge */}
+        <Box sx={{ position: 'absolute', top: 12, left: 12, zIndex: 2 }}>
           <Chip
             label={course.category}
             size="small"
             sx={{
-              background: '#4f46e5',
+              background: 'linear-gradient(135deg, #4f46e5 0%, #a855f7 100%)',
               color: 'white',
-              fontWeight: 600,
+              fontWeight: 700,
               fontSize: '0.75rem',
               px: 1,
+              boxShadow: '0 4px 10px rgba(0,0,0,0.3)',
             }}
           />
         </Box>
@@ -125,22 +119,16 @@ const EnhancedCourseCard = ({ course }) => {
 
       {/* Course Content */}
       <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-        <CardContent sx={{ p: 3, flexGrow: 1, color: '#1a1a2e' }}>
+        <CardContent sx={{ p: 3, flexGrow: 1, color: 'white' }}>
           {/* Icon and Title */}
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              mb: 2,
-              gap: 1.5,
-            }}
-          >
+          <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, gap: 1.5 }}>
             <Box
               sx={{
-                width: 40,
-                height: 40,
+                width: 44,
+                height: 44,
                 borderRadius: '50%',
-                bgcolor: 'rgba(79, 70, 229, 0.1)',
+                background: 'linear-gradient(135deg, rgba(79, 70, 229, 0.2), rgba(236, 72, 153, 0.2))',
+                border: '1px solid rgba(255,255,255,0.1)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -153,11 +141,10 @@ const EnhancedCourseCard = ({ course }) => {
               variant="h6"
               component="h3"
               sx={{
-                fontWeight: 700,
-                fontSize: '1.1rem',
+                fontWeight: 800,
+                fontSize: '1.15rem',
                 lineHeight: 1.3,
-                mb: 1,
-                color: '#1a1a2e',
+                color: 'white',
               }}
             >
               {course.title}
@@ -172,19 +159,15 @@ const EnhancedCourseCard = ({ course }) => {
                 precision={0.5}
                 size="small"
                 readOnly
-                sx={{
-                  '& .MuiRating-icon': {
-                    color: '#ffd700',
-                  },
-                }}
+                sx={{ '& .MuiRating-icon': { color: '#fbbf24' } }}
               />
-              <Typography variant="body2" sx={{ color: '#6b7280', fontSize: '0.9rem' }}>
+              <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem', fontWeight: 600 }}>
                 {course.rating}
               </Typography>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-              <People sx={{ fontSize: '16px', color: '#9ca3af' }} />
-              <Typography variant="body2" sx={{ color: '#9ca3af', fontSize: '0.9rem' }}>
+              <People sx={{ fontSize: '16px', color: 'rgba(255,255,255,0.5)' }} />
+              <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.9rem' }}>
                 {course.students}
               </Typography>
             </Box>
@@ -194,10 +177,10 @@ const EnhancedCourseCard = ({ course }) => {
           <Typography
             variant="body2"
             sx={{
-              color: '#6b7280',
+              color: 'rgba(255,255,255,0.6)',
               mb: 2,
               fontSize: '0.9rem',
-              lineHeight: 1.5,
+              lineHeight: 1.6,
               display: '-webkit-box',
               WebkitLineClamp: 2,
               WebkitBoxOrient: 'vertical',
@@ -208,14 +191,8 @@ const EnhancedCourseCard = ({ course }) => {
           </Typography>
 
           {/* Instructor */}
-          <Typography
-            variant="body2"
-            sx={{
-              color: '#6b7280',
-              mb: 1,
-            }}
-          >
-            By {course.instructor}
+          <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.5)', fontWeight: 500 }}>
+            By <Box component="span" sx={{ color: 'rgba(255,255,255,0.8)' }}>{course.instructor}</Box>
           </Typography>
         </CardContent>
       </Box>
@@ -227,28 +204,17 @@ const EnhancedCourseCard = ({ course }) => {
           gap: 1,
           justifyContent: 'space-between',
           alignItems: 'center',
-          background: '#f9fafb',
-          borderTop: '1px solid #e5e7eb',
+          background: 'rgba(0,0,0,0.2)',
+          borderTop: '1px solid rgba(255, 255, 255, 0.05)',
         }}
       >
         {/* Price */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           {course.isPaid ? (
-            <>
-              <Typography
-                variant="h6"
-                sx={{
-                  color: '#4f46e5',
-                  fontWeight: 800,
-                  fontSize: '1.2rem',
-                }}
-              >
-                ₹{course.price}
-              </Typography>
-              <Typography variant="body2" sx={{ color: '#9ca3af' }}>
-                99
-              </Typography>
-            </>
+            <Typography variant="h6" sx={{ color: '#c084fc', fontWeight: 800, fontSize: '1.25rem' }}>
+              ₹{course.price}
+              <Box component="span" sx={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.4)', ml: 0.5 }}>.99</Box>
+            </Typography>
           ) : (
             <Chip
               label="FREE"
@@ -256,61 +222,44 @@ const EnhancedCourseCard = ({ course }) => {
               sx={{
                 background: 'linear-gradient(135deg, #10b981, #059669)',
                 color: 'white',
-                fontWeight: 600,
+                fontWeight: 700,
+                boxShadow: '0 2px 8px rgba(16, 185, 129, 0.4)',
               }}
             />
           )}
         </Box>
 
-      {/* Action Buttons */}
-      <Box sx={{ display: 'flex', gap: 1 }}>
-        <Tooltip title="Add to Favorites">
-          <IconButton
-            size="small"
-            onClick={handleFavorite}
-            sx={{
-              color: isFavorited ? '#ef4444' : '#9ca3af',
-              '&:hover': {
-                color: isFavorited ? '#ef4444' : '#4b5563',
-                backgroundColor: 'rgba(0, 0, 0, 0.05)',
-              },
-            }}
-          >
-            <Favorite sx={{ fontSize: '18px' }} />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Bookmark">
-          <IconButton
-            size="small"
-            onClick={handleBookmark}
-            sx={{
-              color: isBookmarked ? '#4f46e5' : '#9ca3af',
-              '&:hover': {
-                color: isBookmarked ? '#4f46e5' : '#4b5563',
-                backgroundColor: 'rgba(0, 0, 0, 0.05)',
-              },
-            }}
-          >
-            <Bookmark sx={{ fontSize: '18px' }} />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Share">
-          <IconButton
-            size="small"
-            onClick={handleShare}
-            sx={{
-              color: '#9ca3af',
-              '&:hover': {
-                color: '#4b5563',
-                backgroundColor: 'rgba(0, 0, 0, 0.05)',
-              },
-            }}
-          >
-            <Share sx={{ fontSize: '18px' }} />
-          </IconButton>
-        </Tooltip>
-      </Box>
-    </CardActions>
+        {/* Action Buttons */}
+        <Box sx={{ display: 'flex', gap: 1 }}>
+          <Tooltip title="Add to Favorites">
+            <IconButton
+              size="small"
+              onClick={handleFavorite}
+              sx={{ color: isFavorited ? '#ef4444' : 'rgba(255,255,255,0.4)', '&:hover': { color: isFavorited ? '#ef4444' : 'white', backgroundColor: 'rgba(255, 255, 255, 0.1)' } }}
+            >
+              <Favorite sx={{ fontSize: '18px' }} />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Bookmark">
+            <IconButton
+              size="small"
+              onClick={handleBookmark}
+              sx={{ color: isBookmarked ? '#a855f7' : 'rgba(255,255,255,0.4)', '&:hover': { color: isBookmarked ? '#a855f7' : 'white', backgroundColor: 'rgba(255, 255, 255, 0.1)' } }}
+            >
+              <Bookmark sx={{ fontSize: '18px' }} />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Share">
+            <IconButton
+              size="small"
+              onClick={handleShare}
+              sx={{ color: 'rgba(255,255,255,0.4)', '&:hover': { color: 'white', backgroundColor: 'rgba(255, 255, 255, 0.1)' } }}
+            >
+              <Share sx={{ fontSize: '18px' }} />
+            </IconButton>
+          </Tooltip>
+        </Box>
+      </CardActions>
     </Card>
   );
 };
